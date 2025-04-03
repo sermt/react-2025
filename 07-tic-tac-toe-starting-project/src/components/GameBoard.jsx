@@ -1,28 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function GameBoard({ currentPlayer, handleSelectPlayer }) {
-  const [board, setBoard] = useState([
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-  ]);
-
-  const handleClick = (rowIndex, cellIndex) => {
-    handleSelectPosition(rowIndex, cellIndex);
-  };
-
-  const handleSelectPosition = (rowIndex, cellIndex) => {
-    if (board[rowIndex][cellIndex] !== null) return;
-
-    setBoard((oldBoard) => {
-      const newBoard = structuredClone(oldBoard);
-        newBoard[rowIndex][cellIndex] = currentPlayer.symbol;
-
-      return newBoard;
-    });
-    handleSelectPlayer();
-  };
-
+export default function GameBoard({ board, onSelect }) {
   return (
     <ol id="game-board">
       {board.map((row, rowIndex) => (
@@ -32,7 +10,7 @@ export default function GameBoard({ currentPlayer, handleSelectPlayer }) {
               <li key={cellIndex} className="game-cell">
                 <button
                   disabled={!!cell}
-                  onClick={() => handleClick(rowIndex, cellIndex)}
+                  onClick={() => onSelect(rowIndex, cellIndex)}
                 >
                   {cell}
                 </button>
