@@ -19,7 +19,7 @@ export default function NewProject({ setNewProject, onCancel }) {
       return;
     }
 
-    setNewProject({ title, description, dueDate, id: Date.now() });
+    setNewProject({ title, description, dueDate, id: Date.now(), tasks: [] });
   };
 
   return (

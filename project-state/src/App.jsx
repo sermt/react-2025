@@ -28,6 +28,39 @@ function App() {
     }));
   };
 
+  const handleAddTaskToProject = (newTask) => {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        projects: prevState.projects.map((project) => {
+          if (project.id === selectedProject.id) {
+            return {
+              ...project,
+              tasks: [...project.tasks, newTask],
+            };
+          }
+          return project;
+        }),
+      };
+    });
+  };
+  const handleDeleteTaskToProject = (taskId) => {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        projects: prevState.projects.map((project) => {
+          if (project.id === selectedProject.id) {
+            return {
+              ...project,
+              tasks: project.tasks.filter((task) => task.id !== taskId),
+            };
+          }
+          return project;
+        }),
+      };
+    });
+  };
+
   const handleCancelNewProject = () => {
     setProjectState((prevState) => ({
       ...prevState,
@@ -62,6 +95,8 @@ function App() {
     <SelectedProject
       project={selectedProject}
       onDeleteProject={handleDeleteProject}
+      handleNewTask={handleAddTaskToProject}
+      handleDeleteTask={handleDeleteTaskToProject}
     />
   ) : (
     <NoProjectSelected onStartAddProject={handleStartAddProject} />
