@@ -72,6 +72,7 @@ function App() {
     setProjectState((prevState) => ({
       ...prevState,
       selectedProjectId,
+      isCreatingNew: false,
     }));
   };
 
